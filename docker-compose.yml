@@ -1,0 +1,25 @@
+services:
+  rapids:
+    # RAPIDS GPU data science: cuDF, cuML, JupyterLab
+    # ARM64 native, CUDA 13.0 for GB10 Blackwell (sm_121)
+    image: rapidsai/notebooks:26.04a-cuda13-py3.11
+    container_name: ecosentinel-rapids
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    shm_size: "8g"
+    ports:
+      - "8888:8888"
+    volumes:
+      - /home/nvidia/data:/data:ro
+      - /home/nvidia/ecosentinel:/workspace/ecosentinel
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+
+  # LLM inference: llama-server (host process) serves Nemotron GGUF on port 8080
+  # Start with: startup.sh (already running on host, not as a container)
+  # NVFP4 models (nvidia--Llama-3.1-8B-Instruct-NVFP4) require TensorRT-LLM, not vLLM

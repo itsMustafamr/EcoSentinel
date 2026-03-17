@@ -1,0 +1,22 @@
+{
+  "name": "openclaw-ecosentinel",
+  "version": "1.0.0",
+  "description": "EcoSentinel plugin for OpenClaw — Santa Clara County food safety AI",
+  "main": "ecosentinel.js",
+  "type": "module",
+  "keywords": ["openclaw-plugin", "food-safety", "environmental-health"],
+  "openclaw": {
+    "plugin": true,
+    "extensions": ["./ecosentinel.js"],
+    "triggers": [
+      "food safety",
+      "food inspection",
+      "restaurant risk",
+      "health inspection",
+      "violation",
+      "ecosentinel",
+      "high risk restaurant",
+      "critical violation"
+    ]
+  }
+}
